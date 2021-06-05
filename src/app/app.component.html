@@ -4,11 +4,29 @@
   
 </head>
 <body> 
+  <button class="defaultPoseButton" id="defaultPose" (click)="defaultPose()">Pose por defecto</button>
 	<div style="position: absolute; top: 20px; left: 25px; text-align:left;">
     <!-- <div> mouse controls camera </div>
     <label><input type="checkbox" id="move">  move  </label>	 -->
     <button id="downloadPanel" (click)="savePanel()">Descargar exergame</button>
-    <div id ="panelGUI"></div>
+    
+    <div id="examples">
+      <div class= "grid-container" id = "default_exercises">
+        <img class="grid-item" src="../assets/images/aa.jpg" (click)="this.legExtension()" title="Extensión de pierna">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        <img class="grid-item" src="../assets/images/aa.jpg">
+        </div>
+    </div>
+    <input id="checkbox_show" type="checkbox" value="show_default_exercises" (change)="show_default_exercises()" checked><label for="checkbox_show">Mostrar posiciones por defecto</label>
   </div>
 </body>
 

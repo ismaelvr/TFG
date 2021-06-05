@@ -1,0 +1,30 @@
+#default_exercises{
+    margin-top: 15px;
+    border: black 2px solid;
+    width: 310px;
+    justify-content: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #000000;
+  padding: 10px;
+}
+.grid-item {
+  cursor: pointer;
+  max-width: 100px;
+  max-height: 100px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 30px;
+  margin: 2px
+}
+
+.defaultPoseButton{
+  margin: 0;
+  position: absolute;
+  top: 2%;
+  left: 46.2%;
+
+}

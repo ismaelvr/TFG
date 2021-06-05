@@ -12,6 +12,8 @@ import { ModelComponent } from './model/model.component';
 export class AppComponent {
   name = 'TFG';
 
+  checkbox_show: any;
+
   model: ModelComponent = new ModelComponent();
   gui: GUIComponent = new GUIComponent(this.model);
 
@@ -37,6 +39,7 @@ export class AppComponent {
   raycaster = new THREE.Raycaster(); // create once
   mouse = new THREE.Vector2(); // create once
   intersects: any;
+  examples: any;
 
   constructor() {
     window.addEventListener('resize', this.onWindowResize.bind(this), false);
@@ -64,11 +67,11 @@ export class AppComponent {
     this.scene.add(this.light5);
     this.light6.position.set(0, -1000, 0);
     this.scene.add(this.light6);
+
     //Camera
 
-    this.camera.position.set(0, 200, 400); // Set position like this
+    this.camera.position.set(0, 200, 800); // Set position like this
     this.camera.far = 4000;
-
     this.camera.updateProjectionMatrix();
     //Floor grid
     const gridHelper = new THREE.GridHelper(1000, 20);
@@ -76,7 +79,10 @@ export class AppComponent {
 
     //Renderer
 
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(
+      window.innerWidth - window.innerWidth * 0.01,
+      window.innerHeight - window.innerHeight * 0.02
+    );
     document.body.appendChild(this.renderer.domElement);
 
     //Controls
@@ -100,11 +106,13 @@ export class AppComponent {
   }
 
   onWindowResize() {
-    console.log(document);
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
 
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(
+      window.innerWidth - window.innerWidth * 0.01,
+      window.innerHeight - window.innerHeight * 0.02
+    );
   }
 
   loadPanel() {
@@ -115,6 +123,24 @@ export class AppComponent {
 
   savePanel() {
     this.gui.savePanel();
+  }
+
+  defaultPose() {
+    this.model.startValues();
+    this.model.startPoses();
+    this.gui.defaultPosePanel();
+  }
+
+  show_default_exercises() {
+    this.checkbox_show = document.getElementById('checkbox_show');
+    this.examples = document.getElementById('examples');
+    if (this.examples) {
+      if (this.checkbox_show.checked) {
+        this.examples.style.display = 'block';
+      } else {
+        this.examples.style.display = 'none';
+      }
+    }
   }
 
   animate = () => {
@@ -141,4 +167,9 @@ export class AppComponent {
     this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   }*/
+
+  legExtension() {
+    this.gui.legExtension();
+    this.model.legExtension();
+  }
 }
