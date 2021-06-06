@@ -168,8 +168,7 @@ export class AppComponent {
     this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   }*/
 
-  legExtension() {
-    this.gui.legExtension();
-    this.model.legExtension();
+  loadExergame() {
+    this.gui.loadExergame();
   }
 }

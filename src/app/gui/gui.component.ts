@@ -21,6 +21,9 @@ export class GUIComponent implements OnInit {
   musloIRotX: any;
   posesModelo: any;
   exergameMoment: any;
+  n_rep: any;
+  segundos: any;
+  puntos: any;
 
   constructor(private model: ModelComponent) {}
 
@@ -167,17 +170,17 @@ export class GUIComponent implements OnInit {
       .max(10.5)
       .step(0.1);
 
-    var n_rep = folderEjercicio
+    this.n_rep = folderEjercicio
       .add(ejercicio, 'nº de repeticiones')
       .min(1)
       .max(20)
       .step(1);
-    var segundos = folderEjercicio
+    this.segundos = folderEjercicio
       .add(ejercicio, 'segundos')
       .min(5)
       .max(30)
       .step(1);
-    var puntos = folderEjercicio
+    this.puntos = folderEjercicio
       .add(ejercicio, 'puntos')
       .min(100)
       .max(1000)
@@ -237,7 +240,7 @@ export class GUIComponent implements OnInit {
     });
     this.piernaDRotX.onChange((value: number) => {
       this.model.piernaD.rotation.x = value;
-
+      console.log('onch' + value);
       switch (this.model.exergame_moment) {
         case 'Inicio':
           this.model.start_pose.piernaDrotX = value;
@@ -301,13 +304,13 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.musloIrotX = value;
       }
     });
-    n_rep.onChange((value) => {
+    this.n_rep.onChange((value: number) => {
       this.model.n_rep = value;
     });
-    segundos.onChange((value) => {
+    this.segundos.onChange((value: number) => {
       this.model.segundos = value;
     });
-    puntos.onChange((value) => {
+    this.puntos.onChange((value: number) => {
       this.model.puntos = value;
     });
 
@@ -409,5 +412,49 @@ export class GUIComponent implements OnInit {
     this.piernaIRotX.setValue(this.model.PIERNASENTADOSTARTVALUE);
     this.musloDRotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);
     this.musloIRotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);*/
+  }
+
+  loadExergame() {
+    this.posesModelo.setValue(this.model.exergame1.pose);
+
+    if (this.exergameMoment.getValue() == 'Inicio') {
+      this.antebrazoDRotX.setValue(
+        this.model.exergame1.start_pose.antebrazoDrotX
+      );
+      this.antebrazoIRotX.setValue(
+        this.model.exergame1.start_pose.antebrazoIrotX
+      );
+      this.brazoDRotX.setValue(this.model.exergame1.start_pose.brazoDrotX);
+      this.brazoIRotX.setValue(this.model.exergame1.start_pose.brazoIrotX);
+      this.hombroDRotX.setValue(this.model.exergame1.start_pose.hombroDrotX);
+      this.hombroIRotX.setValue(this.model.exergame1.start_pose.hombroIrotX);
+      this.piernaDRotX.setValue(this.model.exergame1.start_pose.piernaDrotX);
+      this.piernaIRotX.setValue(this.model.exergame1.start_pose.piernaIrotX);
+      this.musloDRotX.setValue(this.model.exergame1.start_pose.musloDrotX);
+      this.musloIRotX.setValue(this.model.exergame1.start_pose.musloIrotX);
+
+      this.model.loadExergame(this.model.exergame1, 'Inicio');
+    } else if (this.exergameMoment.getValue() == 'Final') {
+      this.antebrazoDRotX.setValue(
+        this.model.exergame1.finish_pose.antebrazoDrotX
+      );
+      this.antebrazoIRotX.setValue(
+        this.model.exergame1.finish_pose.antebrazoIrotX
+      );
+      this.brazoDRotX.setValue(this.model.exergame1.finish_pose.brazoDrotX);
+      this.brazoIRotX.setValue(this.model.exergame1.finish_pose.brazoIrotX);
+      this.hombroDRotX.setValue(this.model.exergame1.finish_pose.hombroDrotX);
+      this.hombroIRotX.setValue(this.model.exergame1.finish_pose.hombroIrotX);
+      this.piernaDRotX.setValue(this.model.exergame1.finish_pose.piernaDrotX);
+
+      this.piernaIRotX.setValue(this.model.exergame1.finish_pose.piernaIrotX);
+      this.musloDRotX.setValue(this.model.exergame1.finish_pose.musloDrotX);
+      this.musloIRotX.setValue(this.model.exergame1.finish_pose.musloIrotX);
+
+      this.model.loadExergame(this.model.exergame1, 'Final');
+    }
+    this.n_rep.setValue(this.model.exergame1.n_rep);
+    this.segundos.setValue(this.model.exergame1.segundos);
+    this.puntos.setValue(this.model.exergame1.puntos);
   }
 }
