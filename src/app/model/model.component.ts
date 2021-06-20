@@ -82,23 +82,10 @@ export class ModelComponent implements OnInit {
     musloIrotX: 0,
   };
 
-  /*current_pose = {
-    antebrazoDrotX: 0,
-    antebrazoIrotX: 0,
-    brazoDrotX: 0,
-    brazoIrotX: 0,
-    hombroDrotX: 0,
-    hombroIrotX: 0,
-    piernaDrotX: 0,
-    piernaIrotX: 0,
-    musloDrotX: 0,
-    musloIrotX: 0,
-  };*/
-
   exergame_moment: string = 'Inicio';
   n_rep: number = 5;
-  puntos: number = 10;
-  segundos: number = 1000;
+  puntos: number = 1000;
+  segundos: number = 10;
 
   ANTEBRAZOSTARTVALUE = 3;
   BRAZOSTARTVALUE = -0.2;
@@ -129,6 +116,18 @@ export class ModelComponent implements OnInit {
         this.hombroI = scene.getObjectByName('shoulderl');
         this.musloD = scene.getObjectByName('uperlegr');
         this.musloI = scene.getObjectByName('uperlegl');
+
+        this.antebrazoD.rotation.x = this.ANTEBRAZOSTARTVALUE;
+        this.antebrazoI.rotation.x = this.ANTEBRAZOSTARTVALUE;
+        this.brazoD.rotation.x = this.BRAZOSTARTVALUE;
+        this.brazoI.rotation.x = this.BRAZOSTARTVALUE;
+        this.piernaD.rotation.x = this.PIERNASTARTVALUE;
+        this.piernaI.rotation.x = this.PIERNASTARTVALUE;
+        this.hombroD.rotation.x = this.HOMBROSTARTVALUE;
+        this.hombroI.rotation.x = this.HOMBROSTARTVALUE;
+        this.musloD.rotation.x = this.MUSLOSTARTVALUE;
+        this.musloI.rotation.x = this.MUSLOSTARTVALUE;
+
         /*var skinColor = new THREE.Color('rgb(252,208,180)');
 
         obj.traverse(function (child) {
@@ -190,10 +189,15 @@ export class ModelComponent implements OnInit {
       this.esqueleto.rotation.x = -1.64;
       this.esqueleto.position.y = 50;
       this.esqueleto.position.z = 180;
-      /*this.piernaD.rotation.x = this.PIERNASTARTVALUE;
-      this.piernaI.rotation.x = this.PIERNASTARTVALUE;
-      this.musloD.rotation.x = this.MUSLOSTARTVALUE;
-      this.musloI.rotation.x = this.MUSLOSTARTVALUE;*/
+
+      this.start_pose.piernaDrotX = this.finish_pose.piernaDrotX =
+        this.PIERNASTARTVALUE;
+      this.start_pose.piernaIrotX = this.finish_pose.piernaIrotX =
+        this.PIERNASTARTVALUE;
+      this.start_pose.musloDrotX = this.finish_pose.musloDrotX =
+        this.MUSLOSTARTVALUE;
+      this.start_pose.musloIrotX = this.finish_pose.musloIrotX =
+        this.MUSLOSTARTVALUE;
     }
     if (value == 'De pie') {
       this.esqueleto.rotation.x = 0;
@@ -203,12 +207,15 @@ export class ModelComponent implements OnInit {
       this.piernaI.rotation.x = this.PIERNASTARTVALUE;
       this.musloD.rotation.x = this.MUSLOSTARTVALUE;
       this.musloI.rotation.x = this.MUSLOSTARTVALUE;
-      this.hombroD.rotation.x = this.HOMBROSTARTVALUE;
-      this.hombroI.rotation.x = this.HOMBROSTARTVALUE;
-      this.antebrazoD.rotation.x = this.ANTEBRAZOSTARTVALUE;
-      this.antebrazoI.rotation.x = this.ANTEBRAZOSTARTVALUE;
-      this.brazoD.rotation.x = this.BRAZOSTARTVALUE;
-      this.brazoI.rotation.x = this.BRAZOSTARTVALUE;
+
+      this.start_pose.piernaDrotX = this.finish_pose.piernaDrotX =
+        this.PIERNASTARTVALUE;
+      this.start_pose.piernaIrotX = this.finish_pose.piernaIrotX =
+        this.PIERNASTARTVALUE;
+      this.start_pose.musloDrotX = this.finish_pose.musloDrotX =
+        this.MUSLOSTARTVALUE;
+      this.start_pose.musloIrotX = this.finish_pose.musloIrotX =
+        this.MUSLOSTARTVALUE;
     }
     if (value == 'Sentado') {
       this.piernaD.rotation.x = this.PIERNASENTADOSTARTVALUE;
@@ -224,61 +231,42 @@ export class ModelComponent implements OnInit {
       this.antebrazoI.rotation.x = this.ANTEBRAZOSTARTVALUE;
       this.brazoD.rotation.x = this.BRAZOSTARTVALUE;
       this.brazoI.rotation.x = this.BRAZOSTARTVALUE;
+
+      this.start_pose.piernaDrotX = this.finish_pose.piernaDrotX =
+        this.PIERNASENTADOSTARTVALUE;
+      this.start_pose.piernaIrotX = this.finish_pose.piernaIrotX =
+        this.PIERNASENTADOSTARTVALUE;
+      this.start_pose.musloDrotX = this.finish_pose.musloDrotX =
+        this.MUSLOSENTADOSTARTVALUE;
+      this.start_pose.musloIrotX = this.finish_pose.musloIrotX =
+        this.MUSLOSENTADOSTARTVALUE;
     }
   }
 
-  legExtension() {
-    this.start_pose.hombroDrotX = this.HOMBROSTARTVALUE;
-    this.start_pose.hombroIrotX = this.HOMBROSTARTVALUE;
-    this.start_pose.antebrazoDrotX = this.ANTEBRAZOSTARTVALUE;
-    this.start_pose.antebrazoIrotX = this.ANTEBRAZOSTARTVALUE;
-    this.start_pose.brazoDrotX = this.BRAZOSTARTVALUE;
-    this.start_pose.brazoIrotX = this.BRAZOSTARTVALUE;
-    this.start_pose.musloDrotX = this.MUSLOSENTADOSTARTVALUE;
-    this.start_pose.musloIrotX = this.MUSLOSENTADOSTARTVALUE;
-    this.start_pose.piernaDrotX = this.PIERNASENTADOSTARTVALUE;
-    this.start_pose.piernaIrotX = this.PIERNASENTADOSTARTVALUE;
+  loadExergameModel(exergame: any) {
+    this.start_pose.hombroDrotX = exergame.start_pose.hombroDrotX;
+    this.finish_pose.hombroDrotX = exergame.finish_pose.hombroDrotX;
+    this.start_pose.hombroIrotX = exergame.start_pose.hombroIrotX;
+    this.finish_pose.hombroIrotX = exergame.finish_pose.hombroIrotX;
 
-    this.finish_pose.hombroDrotX = this.HOMBROSTARTVALUE;
-    this.finish_pose.hombroIrotX = this.HOMBROSTARTVALUE;
-    this.finish_pose.antebrazoDrotX = this.ANTEBRAZOSTARTVALUE;
-    this.finish_pose.antebrazoIrotX = this.ANTEBRAZOSTARTVALUE;
-    this.finish_pose.brazoDrotX = this.BRAZOSTARTVALUE;
-    this.finish_pose.brazoIrotX = this.BRAZOSTARTVALUE;
-    this.finish_pose.musloDrotX = this.MUSLOSENTADOSTARTVALUE;
-    this.finish_pose.musloIrotX = this.MUSLOSENTADOSTARTVALUE;
-    this.finish_pose.piernaDrotX = this.PIERNASTARTVALUE;
-    this.finish_pose.piernaIrotX = this.PIERNASENTADOSTARTVALUE;
-  }
+    this.start_pose.antebrazoDrotX = exergame.start_pose.antebrazoDrotX;
+    this.finish_pose.antebrazoDrotX = exergame.finish_pose.antebrazoDrotX;
+    this.start_pose.antebrazoIrotX = exergame.start_pose.antebrazoIrotX;
+    this.finish_pose.antebrazoIrotX = exergame.finish_pose.antebrazoIrotX;
 
-  loadExergame(exergame: any, pose: string) {
-    //Para solo cargar el que falsa
-    switch (pose) {
-      case 'Inicio':
-        this.finish_pose.hombroDrotX = exergame.finish_pose.hombroDrotX;
-        this.finish_pose.hombroIrotX = exergame.finish_pose.hombroIrotX;
-        this.finish_pose.antebrazoDrotX = exergame.finish_pose.antebrazoDrotX;
-        this.finish_pose.antebrazoIrotX = exergame.finish_pose.antebrazoIrotX;
-        this.finish_pose.brazoDrotX = exergame.finish_pose.brazoDrotX;
-        this.finish_pose.brazoIrotX = exergame.finish_pose.brazoIrotX;
-        this.finish_pose.piernaDrotX = exergame.finish_pose.piernaDrotX;
-        this.finish_pose.piernaIrotX = exergame.finish_pose.piernaIrotX;
-        this.finish_pose.musloDrotX = exergame.finish_pose.musloDrotX;
-        this.finish_pose.musloIrotX = exergame.finish_pose.musloIrotX;
+    this.start_pose.brazoDrotX = exergame.start_pose.brazoDrotX;
+    this.finish_pose.brazoDrotX = exergame.finish_pose.brazoDrotX;
+    this.start_pose.brazoIrotX = exergame.start_pose.brazoIrotX;
+    this.finish_pose.brazoIrotX = exergame.finish_pose.brazoIrotX;
 
-        break;
-      case 'Final':
-        this.start_pose.hombroDrotX = exergame.start_pose.hombroDrotX;
-        this.start_pose.hombroIrotX = exergame.start_pose.hombroIrotX;
-        this.start_pose.antebrazoDrotX = exergame.start_pose.antebrazoDrotX;
-        this.start_pose.antebrazoIrotX = exergame.start_pose.antebrazoIrotX;
-        this.start_pose.brazoDrotX = exergame.start_pose.brazoDrotX;
-        this.start_pose.brazoIrotX = exergame.start_pose.brazoIrotX;
-        this.start_pose.piernaDrotX = exergame.start_pose.piernaDrotX;
-        this.start_pose.piernaIrotX = exergame.start_pose.piernaIrotX;
-        this.start_pose.musloDrotX = exergame.start_pose.musloDrotX;
-        this.start_pose.musloIrotX = exergame.start_pose.musloIrotX;
-        break;
-    }
+    this.start_pose.piernaDrotX = exergame.start_pose.piernaDrotX;
+    this.finish_pose.piernaDrotX = exergame.finish_pose.piernaDrotX;
+    this.start_pose.piernaIrotX = exergame.start_pose.piernaIrotX;
+    this.finish_pose.piernaIrotX = exergame.finish_pose.piernaIrotX;
+
+    this.start_pose.musloDrotX = exergame.start_pose.musloDrotX;
+    this.finish_pose.musloDrotX = exergame.finish_pose.musloDrotX;
+    this.start_pose.musloIrotX = exergame.start_pose.musloIrotX;
+    this.finish_pose.musloIrotX = exergame.finish_pose.musloIrotX;
   }
 }

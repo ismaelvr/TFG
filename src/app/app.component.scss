@@ -1,24 +1,82 @@
-#default_exercises{
-    margin-top: 15px;
-    border: black 2px solid;
-    width: 310px;
-    justify-content: center;
+.slider{
+  position: absolute;
+  top: 90%;
+  left: 26.4%;
+  width: 500px;
 }
+
+.inv_button{
+  display: none;
+}
+
+.imp_button{
+  margin-right: 10px;
+  margin-left: 69px;
+}
+
+.white_label{
+  color: white;
+}
+
+.success_msg {
+  display: none;
+  position: absolute;
+  width: 20%;
+  text-align: center;
+  padding: 10px;
+  background-color: #15f05e;
+  color: white;
+  top: 92%;
+  border-radius: 12px;
+}
+
+.failed_msg {
+  display: none;
+  position: absolute;
+  width: 20%;
+  text-align: center;
+  padding: 10px;
+  background-color: #ff0000;
+  color: white;
+  top: 92%;
+  border-radius: 12px;
+}
+
+.loadMsg{
+  align-items: center;
+  justify-content: center;
+  display: flex;}
+
+#default_exercises{
+  margin-top: 15px;
+  border: #ffffff  2px solid;
+  width: 375px;
+  justify-content: center;
+  border-radius: 22px;
+}
+
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   background-color: #000000;
   padding: 10px;
 }
 .grid-item {
-  cursor: pointer;
-  max-width: 100px;
-  max-height: 100px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+
+  max-width: 74px;
+  max-height: 150px;
+  border: 1px solid #ffffff ;
   font-size: 30px;
-  margin: 2px
+  margin: 2px;
+  margin-left: 6px;
+  margin-right: 6px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  //background-color: rgba(255, 255, 255, 0.8);
+  //border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 30px;
 }
 
 .defaultPoseButton{
@@ -26,5 +84,12 @@
   position: absolute;
   top: 2%;
   left: 46.2%;
+
+}
+.animateButton{
+  margin: 0;
+  position: absolute;
+  top: 45px;
+  left: 46.6%;
 
 }

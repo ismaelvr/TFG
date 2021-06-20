@@ -9,16 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class GUIComponent implements OnInit {
   // model: ModelComponent = new ModelComponent();
   panel = new Dat.GUI({ width: 330 });
-  antebrazoDRotX: any;
-  antebrazoIRotX: any;
-  brazoDRotX: any;
-  brazoIRotX: any;
-  piernaDRotX: any;
-  piernaIRotX: any;
-  hombroDRotX: any;
-  hombroIRotX: any;
-  musloDRotX: any;
-  musloIRotX: any;
+  antebrazoDrotX: any;
+  antebrazoIrotX: any;
+  brazoDrotX: any;
+  brazoIrotX: any;
+  piernaDrotX: any;
+  piernaIrotX: any;
+  hombroDrotX: any;
+  hombroIrotX: any;
+  musloDrotX: any;
+  musloIrotX: any;
   posesModelo: any;
   exergameMoment: any;
   n_rep: any;
@@ -27,18 +27,7 @@ export class GUIComponent implements OnInit {
 
   constructor(private model: ModelComponent) {}
 
-  ngOnInit(): void {
-    // this.panel.domElement.id = 'panel';
-  }
-
-  changeMoment(value: string) {
-    switch (value) {
-      case 'Inicio':
-        break;
-      case 'Final':
-        break;
-    }
-  }
+  ngOnInit(): void {}
 
   savePanel() {
     var data = {
@@ -90,7 +79,7 @@ export class GUIComponent implements OnInit {
     const folderEjercicio = this.panel.addFolder('Detalles del ejercicio');
 
     var ejercicio = {
-      'nº de repeticiones': 5,
+      n_rep: 5,
       segundos: 10,
       puntos: 1000,
     };
@@ -102,16 +91,16 @@ export class GUIComponent implements OnInit {
     const exergame = ['Inicio', 'Final'];
 
     var partes = {
-      'brazo derecho rot x': this.model.brazoD.rotation.x,
-      'brazo izquierdo rot x': this.model.brazoI.rotation.x,
-      'antebrazo derecho rot x': this.model.antebrazoD.rotation.x,
-      'antebrazo izquierdo rot x': this.model.antebrazoI.rotation.x,
-      'pierna derecha rot x': this.model.piernaD.rotation.x,
-      'pierna izquierda rot x': this.model.piernaI.rotation.x,
-      'muslo derecho rot x': this.model.musloD.rotation.x,
-      'muslo izquierdo rot x': this.model.musloI.rotation.x,
-      'hombro derecho rot x': this.model.hombroD.rotation.x,
-      'hombro izquierdo rot x': this.model.hombroI.rotation.x,
+      'brazo derecho': this.model.brazoD.rotation.x,
+      'brazo izquierdo': this.model.brazoI.rotation.x,
+      'antebrazo derecho': this.model.antebrazoD.rotation.x,
+      'antebrazo izquierdo': this.model.antebrazoI.rotation.x,
+      'pierna derecha': this.model.piernaD.rotation.x,
+      'pierna izquierda': this.model.piernaI.rotation.x,
+      'muslo derecho': this.model.musloD.rotation.x,
+      'muslo izquierdo': this.model.musloI.rotation.x,
+      'hombro derecho': this.model.hombroD.rotation.x,
+      'hombro izquierdo': this.model.hombroI.rotation.x,
     };
 
     this.posesModelo = folderPoses.add(poses_value, 'pose').options(poses);
@@ -119,62 +108,58 @@ export class GUIComponent implements OnInit {
       .add(exergame_value, 'exergame')
       .options(exergame);
 
-    this.antebrazoDRotX = folderBD
-      .add(partes, 'antebrazo derecho rot x')
+    this.antebrazoDrotX = folderBD
+      .add(partes, 'antebrazo derecho')
       .min(0.5)
       .max(3)
       .step(0.1);
-    this.antebrazoIRotX = folderBI
-      .add(partes, 'antebrazo izquierdo rot x')
+    this.antebrazoIrotX = folderBI
+      .add(partes, 'antebrazo izquierdo')
       .min(0.5)
       .max(3)
       .step(0.1);
-    this.brazoDRotX = folderBD
-      .add(partes, 'brazo derecho rot x')
+    this.brazoDrotX = folderBD
+      .add(partes, 'brazo derecho')
       .min(-1)
       .max(1)
       .step(0.1);
-    this.brazoIRotX = folderBI
-      .add(partes, 'brazo izquierdo rot x')
+    this.brazoIrotX = folderBI
+      .add(partes, 'brazo izquierdo')
       .min(-1)
       .max(1)
       .step(0.1);
-    this.piernaDRotX = folderPD
-      .add(partes, 'pierna derecha rot x')
+    this.piernaDrotX = folderPD
+      .add(partes, 'pierna derecha')
       .min(0.5)
       .max(3.1)
       .step(0.1);
-    this.piernaIRotX = folderPI
-      .add(partes, 'pierna izquierda rot x')
+    this.piernaIrotX = folderPI
+      .add(partes, 'pierna izquierda')
       .min(0.5)
       .max(3.1)
       .step(0.1);
-    this.hombroDRotX = folderBD
-      .add(partes, 'hombro derecho rot x')
-      .min(3.7)
+    this.hombroDrotX = folderBD
+      .add(partes, 'hombro derecho')
+      .min(5.6)
       .max(10)
       .step(0.1);
-    this.hombroIRotX = folderBI
-      .add(partes, 'hombro izquierdo rot x')
-      .min(3.7)
+    this.hombroIrotX = folderBI
+      .add(partes, 'hombro izquierdo')
+      .min(5.6)
       .max(10)
       .step(0.1);
-    this.musloDRotX = folderPD
-      .add(partes, 'muslo derecho rot x')
+    this.musloDrotX = folderPD
+      .add(partes, 'muslo derecho')
       .min(7.5)
       .max(10.5)
       .step(0.1);
-    this.musloIRotX = folderPI
-      .add(partes, 'muslo izquierdo rot x')
+    this.musloIrotX = folderPI
+      .add(partes, 'muslo izquierdo')
       .min(7.5)
       .max(10.5)
       .step(0.1);
 
-    this.n_rep = folderEjercicio
-      .add(ejercicio, 'nº de repeticiones')
-      .min(1)
-      .max(20)
-      .step(1);
+    this.n_rep = folderEjercicio.add(ejercicio, 'n_rep').min(1).max(20).step(1);
     this.segundos = folderEjercicio
       .add(ejercicio, 'segundos')
       .min(5)
@@ -193,7 +178,7 @@ export class GUIComponent implements OnInit {
     folderEjercicio.open();
     folderPoses.open();
 
-    this.antebrazoDRotX.onChange((value: number) => {
+    this.antebrazoDrotX.onChange((value: number) => {
       this.model.antebrazoD.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -204,7 +189,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.antebrazoDrotX = value;
       }
     });
-    this.antebrazoIRotX.onChange((value: number) => {
+    this.antebrazoIrotX.onChange((value: number) => {
       this.model.antebrazoI.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -216,7 +201,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.antebrazoIrotX = value;
       }
     });
-    this.brazoDRotX.onChange((value: number) => {
+    this.brazoDrotX.onChange((value: number) => {
       this.model.brazoD.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -227,7 +212,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.brazoDrotX = value;
       }
     });
-    this.brazoIRotX.onChange((value: number) => {
+    this.brazoIrotX.onChange((value: number) => {
       this.model.brazoI.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -238,9 +223,8 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.brazoIrotX = value;
       }
     });
-    this.piernaDRotX.onChange((value: number) => {
+    this.piernaDrotX.onChange((value: number) => {
       this.model.piernaD.rotation.x = value;
-      console.log('onch' + value);
       switch (this.model.exergame_moment) {
         case 'Inicio':
           this.model.start_pose.piernaDrotX = value;
@@ -249,7 +233,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.piernaDrotX = value;
       }
     });
-    this.piernaIRotX.onChange((value: number) => {
+    this.piernaIrotX.onChange((value: number) => {
       this.model.piernaI.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -260,7 +244,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.piernaIrotX = value;
       }
     });
-    this.hombroDRotX.onChange((value: number) => {
+    this.hombroDrotX.onChange((value: number) => {
       this.model.hombroD.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -271,7 +255,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.hombroDrotX = value;
       }
     });
-    this.hombroIRotX.onChange((value: number) => {
+    this.hombroIrotX.onChange((value: number) => {
       this.model.hombroI.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -282,7 +266,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.hombroIrotX = value;
       }
     });
-    this.musloDRotX.onChange((value: number) => {
+    this.musloDrotX.onChange((value: number) => {
       this.model.musloD.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -293,7 +277,7 @@ export class GUIComponent implements OnInit {
           this.model.finish_pose.musloDrotX = value;
       }
     });
-    this.musloIRotX.onChange((value: number) => {
+    this.musloIrotX.onChange((value: number) => {
       this.model.musloI.rotation.x = value;
 
       switch (this.model.exergame_moment) {
@@ -319,22 +303,22 @@ export class GUIComponent implements OnInit {
 
       switch (value) {
         case 'Tumbado':
-          this.musloDRotX.setValue(this.model.MUSLOSTARTVALUE);
-          this.musloIRotX.setValue(this.model.MUSLOSTARTVALUE);
-          this.piernaDRotX.setValue(this.model.PIERNASTARTVALUE);
-          this.piernaIRotX.setValue(this.model.PIERNASTARTVALUE);
+          this.musloDrotX.setValue(this.model.MUSLOSTARTVALUE);
+          this.musloIrotX.setValue(this.model.MUSLOSTARTVALUE);
+          this.piernaDrotX.setValue(this.model.PIERNASTARTVALUE);
+          this.piernaIrotX.setValue(this.model.PIERNASTARTVALUE);
           break;
         case 'Sentado':
-          this.musloDRotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);
-          this.musloIRotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);
-          this.piernaDRotX.setValue(this.model.PIERNASENTADOSTARTVALUE);
-          this.piernaIRotX.setValue(this.model.PIERNASENTADOSTARTVALUE);
+          this.musloDrotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);
+          this.musloIrotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);
+          this.piernaDrotX.setValue(this.model.PIERNASENTADOSTARTVALUE);
+          this.piernaIrotX.setValue(this.model.PIERNASENTADOSTARTVALUE);
           break;
         case 'De pie':
-          this.musloDRotX.setValue(this.model.MUSLOSTARTVALUE);
-          this.musloIRotX.setValue(this.model.MUSLOSTARTVALUE);
-          this.piernaDRotX.setValue(this.model.PIERNASTARTVALUE);
-          this.piernaIRotX.setValue(this.model.PIERNASTARTVALUE);
+          this.musloDrotX.setValue(this.model.MUSLOSTARTVALUE);
+          this.musloIrotX.setValue(this.model.MUSLOSTARTVALUE);
+          this.piernaDrotX.setValue(this.model.PIERNASTARTVALUE);
+          this.piernaIrotX.setValue(this.model.PIERNASTARTVALUE);
           break;
       }
       this.model.changePose(value);
@@ -345,116 +329,96 @@ export class GUIComponent implements OnInit {
       switch (value) {
         case 'Inicio':
           // this.posesModelo.setValue(this.model.pose);
-          this.antebrazoDRotX.setValue(this.model.start_pose.antebrazoDrotX);
-          this.antebrazoIRotX.setValue(this.model.start_pose.antebrazoIrotX);
-          this.brazoDRotX.setValue(this.model.start_pose.brazoDrotX);
-          this.brazoIRotX.setValue(this.model.start_pose.brazoIrotX);
-          this.piernaDRotX.setValue(this.model.start_pose.piernaDrotX);
-          this.piernaIRotX.setValue(this.model.start_pose.piernaIrotX);
-          this.hombroDRotX.setValue(this.model.start_pose.hombroDrotX);
-          this.hombroIRotX.setValue(this.model.start_pose.hombroIrotX);
-          this.musloDRotX.setValue(this.model.start_pose.musloDrotX);
-          this.musloIRotX.setValue(this.model.start_pose.musloIrotX);
+          (<HTMLInputElement>document.getElementById('myRange')).value = '0';
+          this.antebrazoDrotX.setValue(this.model.start_pose.antebrazoDrotX);
+          this.antebrazoIrotX.setValue(this.model.start_pose.antebrazoIrotX);
+          this.brazoDrotX.setValue(this.model.start_pose.brazoDrotX);
+          this.brazoIrotX.setValue(this.model.start_pose.brazoIrotX);
+          this.piernaDrotX.setValue(this.model.start_pose.piernaDrotX);
+          this.piernaIrotX.setValue(this.model.start_pose.piernaIrotX);
+          this.hombroDrotX.setValue(this.model.start_pose.hombroDrotX);
+          this.hombroIrotX.setValue(this.model.start_pose.hombroIrotX);
+          this.musloDrotX.setValue(this.model.start_pose.musloDrotX);
+          this.musloIrotX.setValue(this.model.start_pose.musloIrotX);
           break;
         case 'Final':
           // this.posesModelo.setValue(this.model.pose);
-          this.antebrazoDRotX.setValue(this.model.finish_pose.antebrazoDrotX);
-          this.antebrazoIRotX.setValue(this.model.finish_pose.antebrazoIrotX);
-          this.brazoDRotX.setValue(this.model.finish_pose.brazoDrotX);
-          this.brazoIRotX.setValue(this.model.finish_pose.brazoIrotX);
-          this.piernaDRotX.setValue(this.model.finish_pose.piernaDrotX);
-          this.piernaIRotX.setValue(this.model.finish_pose.piernaIrotX);
-          this.hombroDRotX.setValue(this.model.finish_pose.hombroDrotX);
-          this.hombroIRotX.setValue(this.model.finish_pose.hombroIrotX);
-          this.musloDRotX.setValue(this.model.finish_pose.musloDrotX);
-          this.musloIRotX.setValue(this.model.finish_pose.musloIrotX);
+          (<HTMLInputElement>document.getElementById('myRange')).value = '100';
+
+          this.antebrazoDrotX.setValue(this.model.finish_pose.antebrazoDrotX);
+          this.antebrazoIrotX.setValue(this.model.finish_pose.antebrazoIrotX);
+          this.brazoDrotX.setValue(this.model.finish_pose.brazoDrotX);
+          this.brazoIrotX.setValue(this.model.finish_pose.brazoIrotX);
+          this.piernaDrotX.setValue(this.model.finish_pose.piernaDrotX);
+          this.piernaIrotX.setValue(this.model.finish_pose.piernaIrotX);
+          this.hombroDrotX.setValue(this.model.finish_pose.hombroDrotX);
+          this.hombroIrotX.setValue(this.model.finish_pose.hombroIrotX);
+          this.musloDrotX.setValue(this.model.finish_pose.musloDrotX);
+          this.musloIrotX.setValue(this.model.finish_pose.musloIrotX);
           break;
       }
     });
   }
   defaultPosePanel() {
-    this.antebrazoDRotX.setValue(this.model.ANTEBRAZOSTARTVALUE);
-    this.antebrazoIRotX.setValue(this.model.ANTEBRAZOSTARTVALUE);
-    this.brazoDRotX.setValue(this.model.BRAZOSTARTVALUE);
-    this.brazoIRotX.setValue(this.model.BRAZOSTARTVALUE);
-    this.piernaDRotX.setValue(this.model.PIERNASTARTVALUE);
-    this.piernaIRotX.setValue(this.model.PIERNASTARTVALUE);
-    this.hombroDRotX.setValue(this.model.HOMBROSTARTVALUE);
-    this.hombroIRotX.setValue(this.model.HOMBROSTARTVALUE);
-    this.musloDRotX.setValue(this.model.MUSLOSTARTVALUE);
-    this.musloIRotX.setValue(this.model.MUSLOSTARTVALUE);
+    this.antebrazoDrotX.setValue(this.model.ANTEBRAZOSTARTVALUE);
+    this.antebrazoIrotX.setValue(this.model.ANTEBRAZOSTARTVALUE);
+    this.brazoDrotX.setValue(this.model.BRAZOSTARTVALUE);
+    this.brazoIrotX.setValue(this.model.BRAZOSTARTVALUE);
+    this.piernaDrotX.setValue(this.model.PIERNASTARTVALUE);
+    this.piernaIrotX.setValue(this.model.PIERNASTARTVALUE);
+    this.hombroDrotX.setValue(this.model.HOMBROSTARTVALUE);
+    this.hombroIrotX.setValue(this.model.HOMBROSTARTVALUE);
+    this.musloDrotX.setValue(this.model.MUSLOSTARTVALUE);
+    this.musloIrotX.setValue(this.model.MUSLOSTARTVALUE);
     this.posesModelo.setValue('De pie');
-
-    // this.panel.__folders.folderPoses.__controllers[0].updateDisplay();
-    /* for (var i = 0; i < Object.keys(this.panel.__folders).length; i++) {
-      var key = Object.keys(this.panel.__folders)[i];
-      for (var j = 0; j < this.panel.__folders[key].__controllers.length; j++) {
-        this.panel.__folders[key].__controllers[j].updateDisplay();
-      }
-    }*/
   }
 
-  legExtension() {
-    this.antebrazoDRotX.setValue(this.model.ANTEBRAZOSTARTVALUE);
-    this.antebrazoIRotX.setValue(this.model.ANTEBRAZOSTARTVALUE);
-    this.brazoDRotX.setValue(this.model.BRAZOSTARTVALUE);
-    this.brazoIRotX.setValue(this.model.BRAZOSTARTVALUE);
-    this.hombroIRotX.setValue(this.model.HOMBROSTARTVALUE);
-    this.hombroDRotX.setValue(this.model.HOMBROSTARTVALUE);
-    this.posesModelo.setValue('Sentado');
-    console.log(this.exergameMoment.getValue());
-    if (this.exergameMoment.getValue() == 'Final') {
-      this.piernaDRotX.setValue(this.model.PIERNASTARTVALUE);
-    }
-
-    // this.model.pose = "Sentado"
-    /*this.piernaDRotX.setValue(this.model.PIERNASENTADOSTARTVALUE);
-    this.piernaIRotX.setValue(this.model.PIERNASENTADOSTARTVALUE);
-    this.musloDRotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);
-    this.musloIRotX.setValue(this.model.MUSLOSENTADOSTARTVALUE);*/
-  }
-
-  loadExergame() {
-    this.posesModelo.setValue(this.model.exergame1.pose);
+  loadExergameGUI(exergame: any) {
+    this.posesModelo.setValue(exergame.pose);
 
     if (this.exergameMoment.getValue() == 'Inicio') {
-      this.antebrazoDRotX.setValue(
-        this.model.exergame1.start_pose.antebrazoDrotX
-      );
-      this.antebrazoIRotX.setValue(
-        this.model.exergame1.start_pose.antebrazoIrotX
-      );
-      this.brazoDRotX.setValue(this.model.exergame1.start_pose.brazoDrotX);
-      this.brazoIRotX.setValue(this.model.exergame1.start_pose.brazoIrotX);
-      this.hombroDRotX.setValue(this.model.exergame1.start_pose.hombroDrotX);
-      this.hombroIRotX.setValue(this.model.exergame1.start_pose.hombroIrotX);
-      this.piernaDRotX.setValue(this.model.exergame1.start_pose.piernaDrotX);
-      this.piernaIRotX.setValue(this.model.exergame1.start_pose.piernaIrotX);
-      this.musloDRotX.setValue(this.model.exergame1.start_pose.musloDrotX);
-      this.musloIRotX.setValue(this.model.exergame1.start_pose.musloIrotX);
+      this.antebrazoDrotX.setValue(exergame.start_pose.antebrazoDrotX);
+      this.antebrazoIrotX.setValue(exergame.start_pose.antebrazoIrotX);
+      this.brazoDrotX.setValue(exergame.start_pose.brazoDrotX);
+      this.brazoIrotX.setValue(exergame.start_pose.brazoIrotX);
+      this.hombroDrotX.setValue(exergame.start_pose.hombroDrotX);
+      this.hombroIrotX.setValue(exergame.start_pose.hombroIrotX);
+      this.piernaDrotX.setValue(exergame.start_pose.piernaDrotX);
+      this.piernaIrotX.setValue(exergame.start_pose.piernaIrotX);
+      this.musloDrotX.setValue(exergame.start_pose.musloDrotX);
+      this.musloIrotX.setValue(exergame.start_pose.musloIrotX);
 
-      this.model.loadExergame(this.model.exergame1, 'Inicio');
+      this.model.loadExergameModel(exergame);
     } else if (this.exergameMoment.getValue() == 'Final') {
-      this.antebrazoDRotX.setValue(
-        this.model.exergame1.finish_pose.antebrazoDrotX
-      );
-      this.antebrazoIRotX.setValue(
-        this.model.exergame1.finish_pose.antebrazoIrotX
-      );
-      this.brazoDRotX.setValue(this.model.exergame1.finish_pose.brazoDrotX);
-      this.brazoIRotX.setValue(this.model.exergame1.finish_pose.brazoIrotX);
-      this.hombroDRotX.setValue(this.model.exergame1.finish_pose.hombroDrotX);
-      this.hombroIRotX.setValue(this.model.exergame1.finish_pose.hombroIrotX);
-      this.piernaDRotX.setValue(this.model.exergame1.finish_pose.piernaDrotX);
+      this.antebrazoDrotX.setValue(exergame.finish_pose.antebrazoDrotX);
+      this.antebrazoIrotX.setValue(exergame.finish_pose.antebrazoIrotX);
+      this.brazoDrotX.setValue(exergame.finish_pose.brazoDrotX);
+      this.brazoIrotX.setValue(exergame.finish_pose.brazoIrotX);
+      this.hombroDrotX.setValue(exergame.finish_pose.hombroDrotX);
+      this.hombroIrotX.setValue(exergame.finish_pose.hombroIrotX);
+      this.piernaDrotX.setValue(exergame.finish_pose.piernaDrotX);
 
-      this.piernaIRotX.setValue(this.model.exergame1.finish_pose.piernaIrotX);
-      this.musloDRotX.setValue(this.model.exergame1.finish_pose.musloDrotX);
-      this.musloIRotX.setValue(this.model.exergame1.finish_pose.musloIrotX);
+      this.piernaIrotX.setValue(exergame.finish_pose.piernaIrotX);
+      this.musloDrotX.setValue(exergame.finish_pose.musloDrotX);
+      this.musloIrotX.setValue(exergame.finish_pose.musloIrotX);
 
-      this.model.loadExergame(this.model.exergame1, 'Final');
+      this.model.loadExergameModel(exergame);
     }
-    this.n_rep.setValue(this.model.exergame1.n_rep);
-    this.segundos.setValue(this.model.exergame1.segundos);
-    this.puntos.setValue(this.model.exergame1.puntos);
+    this.n_rep.setValue(exergame.n_rep);
+    this.segundos.setValue(exergame.segundos);
+    this.puntos.setValue(exergame.puntos);
+  }
+
+  recoverPose(lastPose: any) {
+    this.antebrazoDrotX.setValue(lastPose.antebrazoDrotX);
+    this.antebrazoIrotX.setValue(lastPose.antebrazoIrotX);
+    this.brazoDrotX.setValue(lastPose.brazoDrotX);
+    this.brazoIrotX.setValue(lastPose.brazoIrotX);
+    this.hombroDrotX.setValue(lastPose.hombroDrotX);
+    this.hombroIrotX.setValue(lastPose.hombroIrotX);
+    this.piernaDrotX.setValue(lastPose.piernaDrotX);
+    this.piernaIrotX.setValue(lastPose.piernaIrotX);
+    this.musloDrotX.setValue(lastPose.musloDrotX);
+    this.musloIrotX.setValue(lastPose.musloIrotX);
   }
 }

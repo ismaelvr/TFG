@@ -1,0 +1,30 @@
+{"start_pose": {
+      "antebrazoDrotX": 0.5,
+      "antebrazoIrotX": 0.5,
+      "brazoDrotX": -0.2,
+      "brazoIrotX": -0.2,
+      "hombroDrotX": 10,
+      "hombroIrotX": 10,
+      "musloDrotX": 7.9,
+      "musloIrotX": 7.9,
+      "piernaDrotX": 1.5,
+      "piernaIrotX": 1.5
+    },
+
+    "finish_pose": {
+      "antebrazoDrotX": 0.5,
+      "antebrazoIrotX": 0.5,
+      "brazoDrotX": -0.2,
+      "brazoIrotX": -0.2,
+      "hombroDrotX": 10,
+      "hombroIrotX": 10,
+      "musloDrotX": 7.9,
+      "musloIrotX": 7.9,
+      "piernaDrotX": 3.1,
+      "piernaIrotX": 1.5
+    },
+    "pose": "Sentado",
+    "n_rep": 15,
+    "segundos": 25,
+    "puntos": 900
+}
