@@ -1,12 +1,14 @@
 import Dat from 'dat.gui';
 import { ModelComponent } from '../model/model.component';
 import { Component, OnInit } from '@angular/core';
+import * as THREE from 'three';
+
 @Component({
   selector: 'app-gui',
-  templateUrl: './gui.component.html',
-  styleUrls: ['./gui.component.scss'],
+  templateUrl: './exergamegui.component.html',
+  styleUrls: ['./exergamegui.component.scss'],
 })
-export class GUIComponent implements OnInit {
+export class ExergameGUIComponent implements OnInit {
   // model: ModelComponent = new ModelComponent();
   panel = new Dat.GUI({ width: 330 });
   antebrazoDrotX: any;
@@ -29,6 +31,31 @@ export class GUIComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  importPanel(event: any) {
+    let file: File = event.target.files[0];
+
+    var reader = new FileReader();
+    reader.readAsText(file);
+
+    reader.onloadend = (e) => {
+      var fileString = reader.result as string;
+      try {
+        this.loadExergameGUI(JSON.parse(fileString));
+
+        document.getElementById('exergameLoaded')!.style.display = 'block';
+
+        setTimeout(function () {
+          document.getElementById('exergameLoaded')!.style.display = 'none';
+        }, 1500);
+      } catch {
+        document.getElementById('exergameFailed')!.style.display = 'block';
+
+        setTimeout(function () {
+          document.getElementById('exergameFailed')!.style.display = 'none';
+        }, 1500);
+      }
+    };
+  }
   savePanel() {
     var data = {
       start_pose: {
@@ -69,7 +96,8 @@ export class GUIComponent implements OnInit {
     downloadJSON?.setAttribute('download', 'exergame.json');
     downloadJSON?.click();
   }
-
+  animateExergame() {}
+  defaultPose() {}
   createPanel() {
     const folderPoses = this.panel.addFolder('Posición del paciente');
     const folderBI = this.panel.addFolder('Brazo izquierdo');
@@ -79,94 +107,109 @@ export class GUIComponent implements OnInit {
     const folderEjercicio = this.panel.addFolder('Detalles del ejercicio');
 
     var ejercicio = {
-      n_rep: 5,
-      segundos: 10,
-      puntos: 1000,
+      'Número de repeticiones': 5,
+      Segundos: 10,
+      Puntos: 1000,
     };
 
-    var poses_value = { pose: 'De pie' };
+    var options = {
+      'Animar ejercicio': (this.animateExergame = () => {
+        this.model.animateExergame();
+      }),
+      'Pose por defecto': (this.defaultPose = () => {
+        this.model.defaultPose();
+      }),
+    };
+    var poses_value = { Posición: 'De pie' };
     const poses = ['De pie', 'Tumbado', 'Sentado'];
 
-    var exergame_value = { exergame: 'Inicio' };
+    var exergame_value = { 'Momento del ejercicio': 'Inicio' };
     const exergame = ['Inicio', 'Final'];
 
     var partes = {
-      'brazo derecho': this.model.brazoD.rotation.x,
-      'brazo izquierdo': this.model.brazoI.rotation.x,
-      'antebrazo derecho': this.model.antebrazoD.rotation.x,
-      'antebrazo izquierdo': this.model.antebrazoI.rotation.x,
-      'pierna derecha': this.model.piernaD.rotation.x,
-      'pierna izquierda': this.model.piernaI.rotation.x,
-      'muslo derecho': this.model.musloD.rotation.x,
-      'muslo izquierdo': this.model.musloI.rotation.x,
-      'hombro derecho': this.model.hombroD.rotation.x,
-      'hombro izquierdo': this.model.hombroI.rotation.x,
+      'Brazo derecho': this.model.brazoD.rotation.x,
+      'Brazo izquierdo': this.model.brazoI.rotation.x,
+      'Antebrazo derecho': this.model.antebrazoD.rotation.x,
+      'Antebrazo izquierdo': this.model.antebrazoI.rotation.x,
+      'Pierna derecha': this.model.piernaD.rotation.x,
+      'Pierna izquierda': this.model.piernaI.rotation.x,
+      'Muslo derecho': this.model.musloD.rotation.x,
+      'Muslo izquierdo': this.model.musloI.rotation.x,
+      'Hombro derecho': this.model.hombroD.rotation.x,
+      'Hombro izquierdo': this.model.hombroI.rotation.x,
     };
 
-    this.posesModelo = folderPoses.add(poses_value, 'pose').options(poses);
+    this.posesModelo = folderPoses.add(poses_value, 'Posición').options(poses);
     this.exergameMoment = folderPoses
-      .add(exergame_value, 'exergame')
+      .add(exergame_value, 'Momento del ejercicio')
       .options(exergame);
+    folderPoses.add(options, 'Animar ejercicio');
+
+    folderPoses.add(options, 'Pose por defecto');
 
     this.antebrazoDrotX = folderBD
-      .add(partes, 'antebrazo derecho')
+      .add(partes, 'Antebrazo derecho')
       .min(0.5)
       .max(3)
       .step(0.1);
     this.antebrazoIrotX = folderBI
-      .add(partes, 'antebrazo izquierdo')
+      .add(partes, 'Antebrazo izquierdo')
       .min(0.5)
       .max(3)
       .step(0.1);
     this.brazoDrotX = folderBD
-      .add(partes, 'brazo derecho')
+      .add(partes, 'Brazo derecho')
       .min(-1)
       .max(1)
       .step(0.1);
     this.brazoIrotX = folderBI
-      .add(partes, 'brazo izquierdo')
+      .add(partes, 'Brazo izquierdo')
       .min(-1)
       .max(1)
       .step(0.1);
     this.piernaDrotX = folderPD
-      .add(partes, 'pierna derecha')
+      .add(partes, 'Pierna derecha')
       .min(0.5)
       .max(3.1)
       .step(0.1);
     this.piernaIrotX = folderPI
-      .add(partes, 'pierna izquierda')
+      .add(partes, 'Pierna izquierda')
       .min(0.5)
       .max(3.1)
       .step(0.1);
     this.hombroDrotX = folderBD
-      .add(partes, 'hombro derecho')
+      .add(partes, 'Hombro derecho')
       .min(5.6)
       .max(10)
       .step(0.1);
     this.hombroIrotX = folderBI
-      .add(partes, 'hombro izquierdo')
+      .add(partes, 'Hombro izquierdo')
       .min(5.6)
       .max(10)
       .step(0.1);
     this.musloDrotX = folderPD
-      .add(partes, 'muslo derecho')
+      .add(partes, 'Muslo derecho')
       .min(7.5)
       .max(10.5)
       .step(0.1);
     this.musloIrotX = folderPI
-      .add(partes, 'muslo izquierdo')
+      .add(partes, 'Muslo izquierdo')
       .min(7.5)
       .max(10.5)
       .step(0.1);
 
-    this.n_rep = folderEjercicio.add(ejercicio, 'n_rep').min(1).max(20).step(1);
+    this.n_rep = folderEjercicio
+      .add(ejercicio, 'Número de repeticiones')
+      .min(1)
+      .max(20)
+      .step(1);
     this.segundos = folderEjercicio
-      .add(ejercicio, 'segundos')
+      .add(ejercicio, 'Segundos')
       .min(5)
       .max(30)
       .step(1);
     this.puntos = folderEjercicio
-      .add(ejercicio, 'puntos')
+      .add(ejercicio, 'Puntos')
       .min(100)
       .max(1000)
       .step(50);
@@ -328,7 +371,6 @@ export class GUIComponent implements OnInit {
       this.model.exergame_moment = value;
       switch (value) {
         case 'Inicio':
-          // this.posesModelo.setValue(this.model.pose);
           (<HTMLInputElement>document.getElementById('myRange')).value = '0';
           this.antebrazoDrotX.setValue(this.model.start_pose.antebrazoDrotX);
           this.antebrazoIrotX.setValue(this.model.start_pose.antebrazoIrotX);

@@ -4,8 +4,6 @@
   
 </head>
 <body style="margin: 0px;"> 
-  <button class="defaultPoseButton" id="defaultPose" (click)="defaultPose()">Pose por defecto</button>
-  <button class="animateButton" id="animate" (click)="animateExergame()" [disabled]="inAnimation">Ver animación</button>
 
   <div class="loadMsg">
     <div id = "exergameLoaded"class="success_msg">Exergame cargado correctamente</div>
@@ -13,32 +11,32 @@
   </div>
   
   <div style="position: absolute; top: 20px; left: 25px; text-align:left;">
-    <input id="importPanel" class="inv_button" (change)="importPanel($event)" type="file" accept="application/json" #file>
+    <input id="importPanel" class="inv_button" (change)="this.exergamegui.importPanel($event)" type="file" accept="application/json" #file>
     
     <button class= "imp_button"(click)="file.click()">Importar exergame</button>
-    <button id="downloadPanel" (click)="savePanel()">Exportar exergame</button>
+    <button id="downloadPanel" (click)="this.exergamegui.savePanel()">Exportar exergame</button>
     
     <div id="examples" class="IU_Default_exergames">
       <div class= "grid-container" id = "default_exercises">
-        <img class="grid-item" src="../assets/images/pierna_izq.png" (click)="importDefaultExergame(this.exergame_1)" title="Extensión pierna izquierda">
-        <img class="grid-item" src="../assets/images/pierna_der.png" (click)="importDefaultExergame(this.exergame_2)" title="Extensión pierna derecha">
-        <img class="grid-item" src="../assets/images/rodilla_izq.png" (click)="importDefaultExergame(this.exergame_3)" title="Aducción rodilla izquierda">
-        <img class="grid-item" src="../assets/images/rodilla_der.png" (click)="importDefaultExergame(this.exergame_4)" title="Aducción rodilla derecha">
-        <img class="grid-item" src="../assets/images/brazo_izq.png" (click)="importDefaultExergame(this.exergame_5)" title="Extensión brazo izquierdo">
-        <img class="grid-item" src="../assets/images/brazo_der.png" (click)="importDefaultExergame(this.exergame_6)" title="Entensión brazo derecho">
-        <img class="grid-item" src="../assets/images/antebrazo_izq.png" (click)="importDefaultExergame(this.exergame_7)" title="Extensión antebrazo izquierdo">
-        <img class="grid-item" src="../assets/images/antebrazo_der.png" (click)="importDefaultExergame(this.exergame_8)" title="Extensión antebrazo derecho">
-        <img class="grid-item" src="../assets/images/hombro_izq.png" (click)="importDefaultExergame(this.exergame_9)" title="Levantamiento brazo izquierdo">
-        <img class="grid-item" src="../assets/images/hombro_der.png" (click)="importDefaultExergame(this.exergame_10)" title="Levantamiento brazo derecho">
-        <img class="grid-item" src="../assets/images/rodilla_izq.png" (click)="importDefaultExergame(this.exergame_2)" title="Extensión de pierna">
-        <img class="grid-item" src="../assets/images/rodilla_der.png" (click)="importDefaultExergame(this.exergame_2)" title="Extensión de pierna">
+        <img class="grid-item" src="../assets/images/pierna_izq.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_1)" title="Extensión pierna izquierda">
+        <img class="grid-item" src="../assets/images/pierna_der.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_2)" title="Extensión pierna derecha">
+        <img class="grid-item" src="../assets/images/rodilla_izq.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_3)" title="Aducción rodilla izquierda">
+        <img class="grid-item" src="../assets/images/rodilla_der.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_4)" title="Aducción rodilla derecha">
+        <img class="grid-item" src="../assets/images/brazo_izq.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_5)" title="Extensión brazo izquierdo">
+        <img class="grid-item" src="../assets/images/brazo_der.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_6)" title="Entensión brazo derecho">
+        <img class="grid-item" src="../assets/images/antebrazo_izq.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_7)" title="Extensión antebrazo izquierdo">
+        <img class="grid-item" src="../assets/images/antebrazo_der.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_8)" title="Extensión antebrazo derecho">
+        <img class="grid-item" src="../assets/images/hombro_izq.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_9)" title="Levantamiento brazo izquierdo">
+        <img class="grid-item" src="../assets/images/hombro_der.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_10)" title="Levantamiento brazo derecho">
+        <img class="grid-item" src="../assets/images/rodilla_izq.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_2)" title="Extensión de pierna">
+        <img class="grid-item" src="../assets/images/rodilla_der.png" (click)="this.defaultexergamesgui.importExergame(this.defaultexergamesgui.exergame_2)" title="Extensión de pierna">
  
       </div>
     </div>
-    <input id="checkbox_show" type="checkbox" value="show_default_exercises" (change)="show_default_exercises()" checked><label class="white_label" for="checkbox_show">Mostrar posiciones por defecto</label>
+    <input id="checkbox_show" type="checkbox" value="show_default_exercises" (change)="this.defaultexergamesgui.show_default_exercises()" checked><label class="white_label" for="checkbox_show">Mostrar posiciones por defecto</label>
   </div>
   <div class="slider">
-    <input type="range" min="0" max="100" value="0" class="slider" id="myRange" (input)="sliderChange($event)" [disabled]="inAnimation">
+    <input type="range" min="0" max="100" value="0" class="slider" id="myRange" (input)="this.model.sliderChange($event)" [disabled]="this.model.inAnimation">
   </div>
 </body>   
 

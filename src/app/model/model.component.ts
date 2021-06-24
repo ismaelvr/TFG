@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import gsap from 'gsap';
 
 import * as THREE from 'three';
 import { Scene } from 'three';
+import { ExergameGUIComponent } from '../exergamegui/exergamegui.component';
 
 @Component({
   selector: 'app-model',
@@ -10,6 +12,8 @@ import { Scene } from 'three';
   styleUrls: ['./model.component.scss'],
 })
 export class ModelComponent implements OnInit {
+  exergamegui: any;
+
   esqueleto = new THREE.Group();
   antebrazoD: any;
   antebrazoI: any;
@@ -22,39 +26,7 @@ export class ModelComponent implements OnInit {
   hombroI: any;
   hombroD: any;
 
-  pose: string = 'De pie'; //quitar?
-
-  exergame1 = {
-    start_pose: {
-      antebrazoDrotX: 3,
-      antebrazoIrotX: 3,
-      brazoDrotX: -0.2,
-      brazoIrotX: -0.2,
-      hombroDrotX: 10,
-      hombroIrotX: 10,
-      musloDrotX: 7.9,
-      musloIrotX: 7.9,
-      piernaDrotX: 1.5,
-      piernaIrotX: 1.5,
-    },
-
-    finish_pose: {
-      antebrazoDrotX: 3,
-      antebrazoIrotX: 3,
-      brazoDrotX: -0.2,
-      brazoIrotX: -0.2,
-      hombroDrotX: 10,
-      hombroIrotX: 10,
-      musloDrotX: 7.9,
-      musloIrotX: 7.9,
-      piernaDrotX: 3.1,
-      piernaIrotX: 1.5,
-    },
-    pose: 'Sentado',
-    n_rep: 5,
-    segundos: 20,
-    puntos: 1000,
-  };
+  pose: string = 'De pie';
 
   start_pose = {
     antebrazoDrotX: 0,
@@ -81,6 +53,7 @@ export class ModelComponent implements OnInit {
     musloDrotX: 0,
     musloIrotX: 0,
   };
+  inAnimation: boolean = false;
 
   exergame_moment: string = 'Inicio';
   n_rep: number = 5;
@@ -128,18 +101,6 @@ export class ModelComponent implements OnInit {
         this.musloD.rotation.x = this.MUSLOSTARTVALUE;
         this.musloI.rotation.x = this.MUSLOSTARTVALUE;
 
-        /*var skinColor = new THREE.Color('rgb(252,208,180)');
-
-        obj.traverse(function (child) {
-          console.log(child.children.toString);
-           if (child.mater && child.material.name === 'materialName') {
-              child.material = new THREE.MeshBasicMaterial({ wireframe: true });
-            }
-        });
-        console.log(scene.toJSON().materials[1]);
-        this.esqueleto.getObjectById;*/
-        this.startValues();
-
         this.startPoses();
       },
 
@@ -153,11 +114,9 @@ export class ModelComponent implements OnInit {
     );
   }
 
-  startValues() {
-    this.changePose('De pie');
-  }
-
   startPoses() {
+    this.changePose('De pie');
+
     this.start_pose.antebrazoDrotX = this.finish_pose.antebrazoDrotX =
       this.antebrazoD.rotation.x;
     this.start_pose.antebrazoIrotX = this.finish_pose.antebrazoIrotX =
@@ -268,5 +227,209 @@ export class ModelComponent implements OnInit {
     this.finish_pose.musloDrotX = exergame.finish_pose.musloDrotX;
     this.start_pose.musloIrotX = exergame.start_pose.musloIrotX;
     this.finish_pose.musloIrotX = exergame.finish_pose.musloIrotX;
+  }
+
+  loadGUIonModel(exergameGUI: ExergameGUIComponent) {
+    this.exergamegui = exergameGUI;
+  }
+  defaultPose() {
+    this.exergamegui.defaultPosePanel();
+    this.startPoses();
+  }
+
+  animateExergame() {
+    if (this.exergamegui.exergameMoment.getValue() == 'Inicio') {
+      (<HTMLInputElement>document.getElementById('myRange')).value = '0';
+    } else if (this.exergamegui.exergameMoment.getValue() == 'Final') {
+      (<HTMLInputElement>document.getElementById('myRange')).value = '100';
+    }
+
+    this.antebrazoD.rotation.x = this.start_pose.antebrazoDrotX;
+    this.antebrazoI.rotation.x = this.start_pose.antebrazoIrotX;
+    this.brazoD.rotation.x = this.start_pose.brazoDrotX;
+    this.brazoI.rotation.x = this.start_pose.brazoIrotX;
+    this.piernaD.rotation.x = this.start_pose.piernaDrotX;
+    this.piernaI.rotation.x = this.start_pose.piernaIrotX;
+    this.hombroD.rotation.x = this.start_pose.hombroDrotX;
+    this.hombroI.rotation.x = this.start_pose.hombroIrotX;
+    this.musloD.rotation.x = this.start_pose.musloDrotX;
+    this.musloI.rotation.x = this.start_pose.musloIrotX;
+
+    setTimeout(() => {
+      this.inAnimation = !this.inAnimation;
+
+      this.doAnimation(this.finish_pose);
+    }, 300);
+    setTimeout(() => {
+      this.doAnimation(this.start_pose);
+    }, 2000);
+
+    setTimeout(() => {
+      this.inAnimation = !this.inAnimation;
+      if (this.exergamegui.exergameMoment.getValue() == 'Final') {
+        this.antebrazoD.rotation.x = this.finish_pose.antebrazoDrotX;
+        this.antebrazoI.rotation.x = this.finish_pose.antebrazoIrotX;
+        this.brazoD.rotation.x = this.finish_pose.brazoDrotX;
+        this.brazoI.rotation.x = this.finish_pose.brazoIrotX;
+        this.piernaD.rotation.x = this.finish_pose.piernaDrotX;
+        this.piernaI.rotation.x = this.finish_pose.piernaIrotX;
+        this.hombroD.rotation.x = this.finish_pose.hombroDrotX;
+        this.hombroI.rotation.x = this.finish_pose.hombroIrotX;
+        this.musloD.rotation.x = this.finish_pose.musloDrotX;
+        this.musloI.rotation.x = this.finish_pose.musloIrotX;
+      }
+    }, 3700);
+  }
+
+  doAnimation(pose: any) {
+    gsap.to(this.antebrazoD.rotation, {
+      duration: 1.5,
+      x: pose.antebrazoDrotX,
+    });
+    gsap.to(this.antebrazoI.rotation, {
+      duration: 1.5,
+      x: pose.antebrazoIrotX,
+    });
+
+    gsap.to(this.brazoD.rotation, {
+      duration: 1.5,
+      x: pose.brazoDrotX,
+    });
+    gsap.to(this.brazoI.rotation, {
+      duration: 1.5,
+      x: pose.brazoIrotX,
+    });
+
+    gsap.to(this.musloD.rotation, {
+      duration: 1.5,
+      x: pose.musloDrotX,
+    });
+    gsap.to(this.musloI.rotation, {
+      duration: 1.5,
+      x: pose.musloIrotX,
+    });
+
+    gsap.to(this.piernaD.rotation, {
+      duration: 1.5,
+      x: pose.piernaDrotX,
+    });
+    gsap.to(this.piernaI.rotation, {
+      duration: 1.5,
+      x: pose.piernaIrotX,
+    });
+
+    gsap.to(this.hombroD.rotation, {
+      duration: 1.5,
+      x: pose.hombroDrotX,
+    });
+    gsap.to(this.hombroI.rotation, {
+      duration: 1.5,
+      x: pose.hombroIrotX,
+    });
+  }
+
+  sliderChange(event: any) {
+    var value = event.target.value;
+
+    gsap
+      .fromTo(
+        this.piernaD.rotation,
+        { x: this.start_pose.piernaDrotX },
+        {
+          x: this.finish_pose.piernaDrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.piernaI.rotation,
+        { x: this.start_pose.piernaIrotX },
+        {
+          x: this.finish_pose.piernaIrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.musloD.rotation,
+        { x: this.start_pose.musloDrotX },
+        {
+          x: this.finish_pose.musloDrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.musloI.rotation,
+        { x: this.start_pose.musloIrotX },
+        {
+          x: this.finish_pose.musloIrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.antebrazoD.rotation,
+        { x: this.start_pose.antebrazoDrotX },
+        {
+          x: this.finish_pose.antebrazoDrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.antebrazoI.rotation,
+        { x: this.start_pose.antebrazoIrotX },
+        {
+          x: this.finish_pose.antebrazoIrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.brazoD.rotation,
+        { x: this.start_pose.brazoDrotX },
+        {
+          x: this.finish_pose.brazoDrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.brazoI.rotation,
+        { x: this.start_pose.brazoIrotX },
+        {
+          x: this.finish_pose.brazoIrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.hombroD.rotation,
+        { x: this.start_pose.hombroDrotX },
+        {
+          x: this.finish_pose.hombroDrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
+    gsap
+      .fromTo(
+        this.hombroI.rotation,
+        { x: this.start_pose.hombroIrotX },
+        {
+          x: this.finish_pose.hombroIrotX,
+          paused: true,
+        }
+      )
+      .progress(value / 100);
   }
 }

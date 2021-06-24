@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GUIComponent } from './gui.component';
+import { ExergameGUIComponent } from './exergamegui.component';
 
 describe('GUIComponent', () => {
-  let component: GUIComponent;
-  let fixture: ComponentFixture<GUIComponent>;
+  let component: ExergameGUIComponent;
+  let fixture: ComponentFixture<ExergameGUIComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GUIComponent ]
-    })
-    .compileComponents();
+      declarations: [ExergameGUIComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GUIComponent);
+    fixture = TestBed.createComponent(ExergameGUIComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
