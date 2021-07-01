@@ -60,13 +60,13 @@ export class ModelComponent implements OnInit {
   puntos: number = 1000;
   segundos: number = 10;
 
-  ANTEBRAZOSTARTVALUE = 3;
-  BRAZOSTARTVALUE = -0.2;
-  PIERNASTARTVALUE = 3.1;
-  PIERNASENTADOSTARTVALUE = 1.5;
-  HOMBROSTARTVALUE = 10;
-  MUSLOSTARTVALUE = 9.5;
-  MUSLOSENTADOSTARTVALUE = 7.9;
+  readonly ANTEBRAZOSTARTVALUE = 3;
+  readonly BRAZOSTARTVALUE = -0.2;
+  readonly PIERNASTARTVALUE = 3.1;
+  readonly PIERNASENTADOSTARTVALUE = 1.5;
+  readonly HOMBROSTARTVALUE = 10;
+  readonly MUSLOSTARTVALUE = 9.5;
+  readonly MUSLOSENTADOSTARTVALUE = 7.9;
 
   constructor() {}
 
@@ -267,16 +267,7 @@ export class ModelComponent implements OnInit {
     setTimeout(() => {
       this.inAnimation = !this.inAnimation;
       if (this.exergamegui.exergameMoment.getValue() == 'Final') {
-        this.antebrazoD.rotation.x = this.finish_pose.antebrazoDrotX;
-        this.antebrazoI.rotation.x = this.finish_pose.antebrazoIrotX;
-        this.brazoD.rotation.x = this.finish_pose.brazoDrotX;
-        this.brazoI.rotation.x = this.finish_pose.brazoIrotX;
-        this.piernaD.rotation.x = this.finish_pose.piernaDrotX;
-        this.piernaI.rotation.x = this.finish_pose.piernaIrotX;
-        this.hombroD.rotation.x = this.finish_pose.hombroDrotX;
-        this.hombroI.rotation.x = this.finish_pose.hombroIrotX;
-        this.musloD.rotation.x = this.finish_pose.musloDrotX;
-        this.musloI.rotation.x = this.finish_pose.musloIrotX;
+        this.exergamegui.recoverPose(this.finish_pose);
       }
     }, 3700);
   }
